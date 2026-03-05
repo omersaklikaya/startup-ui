@@ -1,0 +1,96 @@
+<!-- ================================================
+  startup-ui — Toast Component (HTML + Vanilla JS)
+  Variants: success, error, warning, info
+  Features: auto dismiss (3s), manual close, stack
+  Accessibility: role=alert, aria-live
+================================================ -->
+
+<!-- Trigger Butonları (Demo) -->
+<div class="flex flex-wrap gap-2">
+    <button onclick="showToast('success', 'İşlem başarılı!', 'Değişiklikler kaydedildi.')"
+        class="rounded-md bg-emerald-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-700">Başarı</button>
+    <button onclick="showToast('error',   'Hata oluştu!',    'Lütfen tekrar deneyin.')"
+        class="rounded-md bg-red-600    px-3 py-1.5 text-sm font-medium text-white hover:bg-red-700">Hata</button>
+    <button onclick="showToast('warning', 'Dikkat!',         'Bu işlem geri alınamaz.')"
+        class="rounded-md bg-amber-500  px-3 py-1.5 text-sm font-medium text-white hover:bg-amber-600">Uyarı</button>
+    <button onclick="showToast('info',    'Bilgi',           'Yeni bir güncelleme var.')"
+        class="rounded-md bg-blue-600   px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-700">Bilgi</button>
+</div>
+
+<!-- Toast Container — sağ alt köşe -->
+<div id="toast-container" aria-live="polite" aria-atomic="false"
+    class="fixed bottom-4 right-4 z-50 flex flex-col gap-2"></div>
+
+<script>
+    const VARIANTS = {
+        success: {
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+            classes: "border-emerald-200 bg-emerald-50 text-emerald-900 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-100",
+            iconClass: "text-emerald-600 dark:text-emerald-400",
+        },
+        error: {
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`,
+            classes: "border-red-200 bg-red-50 text-red-900 dark:border-red-800 dark:bg-red-950 dark:text-red-100",
+            iconClass: "text-red-600 dark:text-red-400",
+        },
+        warning: {
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+            classes: "border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-100",
+            iconClass: "text-amber-600 dark:text-amber-400",
+        },
+        info: {
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
+            classes: "border-blue-200 bg-blue-50 text-blue-900 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-100",
+            iconClass: "text-blue-600 dark:text-blue-400",
+        },
+    };
+
+    function showToast(variant = "info", title, description, duration = 3000) {
+        const container = document.getElementById("toast-container");
+        const v = VARIANTS[variant];
+        const id = `toast-${Date.now()}`;
+
+        const el = document.createElement("div");
+        el.id = id;
+        el.setAttribute("role", "alert");
+        el.className = [
+            "flex w-80 items-start gap-3 rounded-lg border p-4 shadow-lg",
+            "translate-y-2 opacity-0 transition-all duration-300",
+            v.classes,
+        ].join(" ");
+
+        el.innerHTML = `
+      <span class="${v.iconClass} mt-0.5 shrink-0">${v.icon}</span>
+      <div class="flex-1 min-w-0">
+        <p class="text-sm font-semibold">${title}</p>
+        ${description ? `<p class="mt-0.5 text-xs opacity-80">${description}</p>` : ""}
+      </div>
+      <button
+        onclick="removeToast('${id}')"
+        aria-label="Kapat"
+        class="shrink-0 rounded p-0.5 opacity-60 transition-opacity hover:opacity-100"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    `;
+
+        container.appendChild(el);
+
+        // Giriş animasyonu
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                el.classList.remove("translate-y-2", "opacity-0");
+            });
+        });
+
+        // Auto dismiss
+        if (duration > 0) setTimeout(() => removeToast(id), duration);
+    }
+
+    function removeToast(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.add("opacity-0", "translate-y-2");
+        setTimeout(() => el.remove(), 300);
+    }
+</script>

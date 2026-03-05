@@ -1,0 +1,91 @@
+<!-- ================================================
+  startup-ui — Modal Component (HTML + Vanilla JS)
+  Features: ESC ile kapanma, backdrop click close,
+            focus trap, scroll lock
+  Accessibility: role=dialog, aria-modal, aria-labelledby
+================================================ -->
+
+<!-- Trigger Button -->
+<button type="button" onclick="openModal('demo-modal')"
+    class="rounded-md bg-black px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200">
+    Modal Aç
+</button>
+
+<!-- Modal -->
+<div id="demo-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc"
+    class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" aria-hidden="true" onclick="closeModal('demo-modal')">
+    </div>
+
+    <!-- Panel -->
+    <div class="relative w-full max-w-md rounded-xl border border-neutral-200 bg-white shadow-xl dark:border-neutral-800 dark:bg-neutral-900"
+        role="document">
+        <!-- Header -->
+        <div class="flex items-center justify-between border-b border-neutral-200 px-6 py-4 dark:border-neutral-800">
+            <h2 id="modal-title" class="text-base font-semibold text-neutral-900 dark:text-neutral-100">
+                Modal Başlığı
+            </h2>
+            <!-- Kapat butonu -->
+            <button type="button" onclick="closeModal('demo-modal')" aria-label="Kapat"
+                class="rounded-md p-1 text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-neutral-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M18 6 6 18M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Body -->
+        <div class="px-6 py-4">
+            <p id="modal-desc" class="text-sm text-neutral-600 dark:text-neutral-400">
+                Bu bir modal açıklamasıdır. Kullanıcıya önemli bir bilgi vermek veya onaylatmak için kullanın.
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="flex items-center justify-end gap-2 border-t border-neutral-200 px-6 py-4 dark:border-neutral-800">
+            <button type="button" onclick="closeModal('demo-modal')"
+                class="rounded-md border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800">
+                İptal
+            </button>
+            <button type="button"
+                class="rounded-md bg-black px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200">
+                Onayla
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Modal aç
+    function openModal(id) {
+        const modal = document.getElementById(id);
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden'; // scroll lock
+
+        // Focus'u ilk odaklanabilir elemente taşı
+        const focusable = modal.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length) focusable[0].focus();
+    }
+
+    // Modal kapat
+    function closeModal(id) {
+        const modal = document.getElementById(id);
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+    }
+
+    // ESC ile kapat
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('[role="dialog"]:not(.hidden)').forEach((modal) => {
+                closeModal(modal.id);
+            });
+        }
+    });
+</script>

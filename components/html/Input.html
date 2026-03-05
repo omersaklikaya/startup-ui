@@ -1,0 +1,65 @@
+<!-- ================================================
+  startup-ui — Input Component (HTML)
+  Variants: default, error, disabled, with icon
+  Dark mode: class-based (dark:)
+  Accessibility: label for, aria-describedby, aria-invalid
+================================================ -->
+
+<!-- Default Input -->
+<div class="flex flex-col gap-1.5">
+    <label for="input-default" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+        E-posta
+    </label>
+    <input id="input-default" type="email" placeholder="ada@ornek.com" autocomplete="email"
+        class="w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 shadow-sm transition-colors focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900/10 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:placeholder:text-neutral-500 dark:focus:border-neutral-400 dark:focus:ring-neutral-400/10" />
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">İş e-postanızı girin.</p>
+</div>
+
+<!-- Error State -->
+<div class="flex flex-col gap-1.5">
+    <label for="input-error" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+        E-posta
+    </label>
+    <input id="input-error" type="email" value="geçersiz-email" aria-invalid="true" aria-describedby="input-error-msg"
+        class="w-full rounded-md border border-red-500 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 shadow-sm focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/10 dark:border-red-500 dark:bg-neutral-900 dark:text-neutral-100" />
+    <!-- Hata mesajı: aria-describedby ile input'a bağlı -->
+    <p id="input-error-msg" role="alert" class="text-xs text-red-500">
+        Geçerli bir e-posta adresi girin.
+    </p>
+</div>
+
+<!-- Disabled State -->
+<div class="flex flex-col gap-1.5">
+    <label for="input-disabled" class="text-sm font-medium text-neutral-400 dark:text-neutral-600">
+        Kullanıcı Adı
+    </label>
+    <input id="input-disabled" type="text" value="omersaklikaya" disabled
+        class="w-full cursor-not-allowed rounded-md border border-neutral-200 bg-neutral-50 px-3 py-2 text-sm text-neutral-400 shadow-sm dark:border-neutral-800 dark:bg-neutral-800/50 dark:text-neutral-500" />
+</div>
+
+<!-- Input with Left Icon -->
+<div class="flex flex-col gap-1.5">
+    <label for="input-icon" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+        Ara
+    </label>
+    <div class="relative">
+        <!-- Sol ikon -->
+        <svg xmlns="http://www.w3.org/2000/svg"
+            class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400 dark:text-neutral-500"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
+        </svg>
+        <input id="input-icon" type="search" placeholder="Bileşen ara..."
+            class="w-full rounded-md border border-neutral-300 bg-white py-2 pl-9 pr-3 text-sm text-neutral-900 placeholder:text-neutral-400 shadow-sm transition-colors focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900/10 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:placeholder:text-neutral-500 dark:focus:border-neutral-400" />
+    </div>
+</div>
+
+<!-- Textarea -->
+<div class="flex flex-col gap-1.5">
+    <label for="input-textarea" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+        Mesaj
+    </label>
+    <textarea id="input-textarea" rows="4" placeholder="Mesajınızı buraya yazın..."
+        class="w-full resize-y rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 shadow-sm transition-colors focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900/10 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:placeholder:text-neutral-500 dark:focus:border-neutral-400"></textarea>
+</div>

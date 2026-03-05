@@ -1,0 +1,111 @@
+<!-- ================================================
+  startup-ui — Navbar Component (HTML + Vanilla JS)
+  Features: responsive, mobile hamburger, active link
+  Accessibility: nav landmark, aria-label, aria-expanded
+================================================ -->
+
+<header
+    class="sticky top-0 z-40 w-full border-b border-neutral-200 bg-white/80 backdrop-blur-sm dark:border-neutral-800 dark:bg-neutral-950/80">
+    <nav class="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6" aria-label="Ana navigasyon">
+
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-2 font-semibold text-neutral-900 dark:text-neutral-100"
+            aria-label="Ana sayfaya git">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                <polyline points="2 17 12 22 22 17" />
+                <polyline points="2 12 12 17 22 12" />
+            </svg>
+            startup-ui
+        </a>
+
+        <!-- Desktop Links -->
+        <ul class="hidden items-center gap-6 md:flex" role="list">
+            <li><a href="#" class="text-sm font-medium text-neutral-900 dark:text-neutral-100">Bileşenler</a></li>
+            <li><a href="#"
+                    class="text-sm text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100">Döküman</a>
+            </li>
+            <li><a href="#"
+                    class="text-sm text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100">Örnekler</a>
+            </li>
+            <li><a href="#"
+                    class="text-sm text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100">GitHub</a>
+            </li>
+        </ul>
+
+        <!-- Desktop Sağ -->
+        <div class="hidden items-center gap-2 md:flex">
+            <button type="button" aria-label="Dark mode geçiş"
+                class="rounded-md p-2 text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-100">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                </svg>
+            </button>
+            <a href="#"
+                class="rounded-md bg-black px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200">
+                Başla →
+            </a>
+        </div>
+
+        <!-- Hamburger (mobile) -->
+        <button type="button" id="nav-hamburger" aria-label="Menüyü aç" aria-expanded="false"
+            aria-controls="mobile-menu" onclick="toggleMobileMenu()"
+            class="flex md:hidden rounded-md p-2 text-neutral-500 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800">
+            <!-- Hamburger icon -->
+            <svg id="icon-menu" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+            <!-- X icon (hidden by default) -->
+            <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="hidden h-5 w-5" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+        </button>
+
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu"
+        class="hidden border-t border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950 md:hidden">
+        <ul class="flex flex-col px-4 py-3 gap-1" role="list">
+            <li><a href="#"
+                    class="block rounded-md px-3 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-100 dark:text-neutral-100 dark:hover:bg-neutral-800">Bileşenler</a>
+            </li>
+            <li><a href="#"
+                    class="block rounded-md px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800">Döküman</a>
+            </li>
+            <li><a href="#"
+                    class="block rounded-md px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800">Örnekler</a>
+            </li>
+            <li><a href="#"
+                    class="block rounded-md px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800">GitHub</a>
+            </li>
+        </ul>
+        <div class="border-t border-neutral-200 px-4 py-3 dark:border-neutral-800">
+            <a href="#"
+                class="block w-full rounded-md bg-black px-4 py-2 text-center text-sm font-medium text-white dark:bg-white dark:text-black">
+                Başla →
+            </a>
+        </div>
+    </div>
+</header>
+
+<script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const btn = document.getElementById('nav-hamburger');
+        const iconMenu = document.getElementById('icon-menu');
+        const iconClose = document.getElementById('icon-close');
+        const isOpen = !menu.classList.contains('hidden');
+
+        menu.classList.toggle('hidden', isOpen);
+        btn.setAttribute('aria-expanded', String(!isOpen));
+        iconMenu.classList.toggle('hidden', !isOpen);
+        iconClose.classList.toggle('hidden', isOpen);
+    }
+</script>

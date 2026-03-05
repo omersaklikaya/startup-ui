@@ -1,0 +1,78 @@
+<!-- ================================================
+  startup-ui — Card Component (HTML)
+  Variants: default, interactive (hover)
+  Dark mode: class-based (dark:)
+  Accessibility: article, header, section semantics
+================================================ -->
+
+<!-- Default Card -->
+<article
+    class="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+    <header>
+        <h3 class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Kart Başlığı</h3>
+        <p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Kart açıklaması buraya gelir.</p>
+    </header>
+    <section class="mt-4 text-sm text-neutral-700 dark:text-neutral-300">
+        <p>İçerik alanı. Buraya istediğiniz herhangi bir içerik ekleyebilirsiniz.</p>
+    </section>
+    <footer class="mt-6 flex items-center justify-end gap-2">
+        <button type="button"
+            class="rounded-md border border-neutral-300 px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800">
+            İptal
+        </button>
+        <button type="button"
+            class="rounded-md bg-black px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200">
+            Devam Et
+        </button>
+    </footer>
+</article>
+
+<!-- Interactive Card (hover effect) -->
+<article
+    class="group cursor-pointer rounded-xl border border-neutral-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-neutral-300 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-neutral-700"
+    tabindex="0" role="button" aria-label="Proje detaylarını gör">
+    <!-- Üst: ikon + badge -->
+    <div class="flex items-start justify-between">
+        <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-neutral-100 dark:bg-neutral-800">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-neutral-700 dark:text-neutral-300"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <path d="M9 9h6M9 13h4" />
+            </svg>
+        </div>
+        <span
+            class="rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
+            Aktif
+        </span>
+    </div>
+
+    <div class="mt-4">
+        <h3
+            class="font-semibold text-neutral-900 transition-colors group-hover:text-black dark:text-neutral-100 dark:group-hover:text-white">
+            Proje Adı
+        </h3>
+        <p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+            Proje açıklaması. Kısa ve öz tutun.
+        </p>
+    </div>
+
+    <!-- Alt: meta bilgi -->
+    <div class="mt-4 flex items-center gap-4 text-xs text-neutral-400 dark:text-neutral-500">
+        <span>12 bileşen</span>
+        <span>·</span>
+        <span>3 gün önce güncellendi</span>
+    </div>
+</article>
+
+<!-- Stat Card -->
+<article class="rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-900">
+    <p class="text-sm font-medium text-neutral-500 dark:text-neutral-400">Toplam Kullanıcı</p>
+    <p class="mt-2 text-3xl font-bold text-neutral-900 dark:text-neutral-100">12,430</p>
+    <p class="mt-1 flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <polyline points="18 15 12 9 6 15" />
+        </svg>
+        Geçen aya göre %8.2 artış
+    </p>
+</article>

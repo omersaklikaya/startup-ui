@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="tr" class="">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>startup-ui — Component Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' };
+    </script>
+    <style>
+        /* Smooth toast transitions */
+        .toast-enter {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+
+        .toast-show {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .toast-leave {
+            opacity: 0;
+            transform: translateY(8px);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
+
+    <!-- NAVBAR -->
+    <header
+        class="sticky top-0 z-40 border-b border-neutral-200 bg-white/80 backdrop-blur-sm dark:border-neutral-800 dark:bg-neutral-950/80">
+        <nav class="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6" aria-label="Ana navigasyon">
+            <a href="/" class="flex items-center gap-2 font-semibold">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                    <polyline points="2 17 12 22 22 17" />
+                    <polyline points="2 12 12 17 22 12" />
+                </svg>
+                startup-ui
+            </a>
+            <div class="flex items-center gap-3">
+                <!-- Dark mode toggle -->
+                <button onclick="toggleDark()" aria-label="Dark mode geçiş"
+                    class="rounded-md p-2 text-neutral-500 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800">
+                    <svg id="icon-dark" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>
+                </button>
+                <a href="https://github.com/omersaklikaya/startup-ui" target="_blank"
+                    class="rounded-md bg-black px-3 py-1.5 text-sm font-medium text-white hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200">GitHub
+                    →</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="mx-auto max-w-6xl px-4 py-12 sm:px-6 space-y-20">
+
+        <!-- HERO -->
+        <section class="text-center space-y-4">
+            <span
+                class="inline-block rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs text-neutral-500 dark:border-neutral-800 dark:bg-neutral-900">dependency-free
+                · copy-paste · production-ready</span>
+            <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">startup-ui</h1>
+            <p class="mx-auto max-w-xl text-neutral-500 dark:text-neutral-400">Kopyala, yapıştır, kullan. Harici
+                kütüphane yok. Sadece Tailwind CSS.</p>
+        </section>
+
+        <!-- ── BUTTONS ── -->
+        <section id="buttons" aria-labelledby="btn-heading">
+            <h2 id="btn-heading" class="mb-6 text-xl font-semibold">Button</h2>
+            <div class="rounded-xl border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-neutral-900">
+                <div class="flex flex-wrap gap-3">
+                    <!-- Primary -->
+                    <button type="button"
+                        class="inline-flex items-center justify-center rounded-md bg-black px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-neutral-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:bg-white dark:text-black dark:hover:bg-neutral-200">Primary</button>
+                    <!-- Secondary -->
+                    <button type="button"
+                        class="inline-flex items-center justify-center rounded-md bg-neutral-100 px-4 py-2 text-sm font-medium text-neutral-900 shadow-sm transition-colors hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-100 dark:hover:bg-neutral-700">Secondary</button>
+                    <!-- Outline -->
+                    <button type="button"
+                        class="inline-flex items-center justify-center rounded-md border border-neutral-300 bg-transparent px-4 py-2 text-sm font-medium text-neutral-900 transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-800">Outline</button>
+                    <!-- Destructive -->
+                    <button type="button"
+                        class="inline-flex items-center justify-center rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-red-700">Destructive</button>
+                    <!-- Loading -->
+                    <button type="button" disabled aria-busy="true"
+                        class="inline-flex items-center justify-center gap-2 rounded-md bg-black px-4 py-2 text-sm font-medium text-white opacity-75 cursor-not-allowed dark:bg-white dark:text-black">
+                        <svg class="h-4 w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                        </svg>
+                        Yükleniyor...
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── CARDS ── -->
+        <section id="cards" aria-labelledby="card-heading">
+            <h2 id="card-heading" class="mb-6 text-xl font-semibold">Card</h2>
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Default -->
+                <article
+                    class="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+                    <h3 class="text-base font-semibold">Default Card</h3>
+                    <p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Temel kart bileşeni. Header, body ve
+                        footer alanlarıyla.</p>
+                    <div class="mt-4 flex justify-end gap-2">
+                        <button
+                            class="rounded-md border border-neutral-300 px-3 py-1.5 text-xs font-medium hover:bg-neutral-100 dark:border-neutral-700 dark:hover:bg-neutral-800">İptal</button>
+                        <button
+                            class="rounded-md bg-black px-3 py-1.5 text-xs font-medium text-white hover:bg-neutral-800 dark:bg-white dark:text-black">Kaydet</button>
+                    </div>
+                </article>
+                <!-- Interactive -->
+                <article
+                    class="group cursor-pointer rounded-xl border border-neutral-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-neutral-700"
+                    tabindex="0" role="button" aria-label="İnteraktif kart">
+                    <div class="flex items-start justify-between">
+                        <div
+                            class="flex h-10 w-10 items-center justify-center rounded-lg bg-neutral-100 dark:bg-neutral-800">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                                <polyline points="2 17 12 22 22 17" />
+                            </svg>
+                        </div>
+                        <span
+                            class="rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">Aktif</span>
+                    </div>
+                    <h3 class="mt-4 font-semibold">Interactive Card</h3>
+                    <p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Hover ve focus efektleri olan
+                        tıklanabilir kart.</p>
+                </article>
+                <!-- Stat -->
+                <article
+                    class="rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-900">
+                    <p class="text-sm font-medium text-neutral-500 dark:text-neutral-400">Toplam Kullanıcı</p>
+                    <p class="mt-2 text-3xl font-bold">12,430</p>
+                    <p class="mt-1 flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <polyline points="18 15 12 9 6 15" />
+                        </svg>
+                        %8.2 artış
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- ── INPUTS ── -->
+        <section id="inputs" aria-labelledby="input-heading">
+            <h2 id="input-heading" class="mb-6 text-xl font-semibold">Input</h2>
+            <div class="rounded-xl border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-neutral-900">
+                <div class="grid gap-6 sm:grid-cols-2">
+                    <!-- Default -->
+                    <div class="flex flex-col gap-1.5">
+                        <label for="d-email"
+                            class="text-sm font-medium text-neutral-700 dark:text-neutral-300">E-posta</label>
+                        <input id="d-email" type="email" placeholder="ada@ornek.com"
+                            class="w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm placeholder:text-neutral-400 shadow-sm focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900/10 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:placeholder:text-neutral-500" />
+                        <p class="text-xs text-neutral-500">İş e-postanızı girin.</p>
+                    </div>
+                    <!-- Error -->
+                    <div class="flex flex-col gap-1.5">
+                        <label for="d-error" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">E-posta
+                            (Hatalı)</label>
+                        <input id="d-error" type="email" value="geçersiz" aria-invalid="true"
+                            aria-describedby="d-error-msg"
+                            class="w-full rounded-md border border-red-500 bg-white px-3 py-2 text-sm shadow-sm focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/10 dark:bg-neutral-900 dark:text-neutral-100" />
+                        <p id="d-error-msg" role="alert" class="text-xs text-red-500">Geçerli bir e-posta adresi girin.
+                        </p>
+                    </div>
+                    <!-- Search with icon -->
+                    <div class="flex flex-col gap-1.5">
+                        <label for="d-search"
+                            class="text-sm font-medium text-neutral-700 dark:text-neutral-300">Arama</label>
+                        <div class="relative">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8" />
+                                <path d="m21 21-4.35-4.35" />
+                            </svg>
+                            <input id="d-search" type="search" placeholder="Bileşen ara..."
+                                class="w-full rounded-md border border-neutral-300 bg-white py-2 pl-9 pr-3 text-sm placeholder:text-neutral-400 shadow-sm focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900/10 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100" />
+                        </div>
+                    </div>
+                    <!-- Disabled -->
+                    <div class="flex flex-col gap-1.5">
+                        <label for="d-disabled" class="text-sm font-medium text-neutral-400">Devre Dışı</label>
+                        <input id="d-disabled" type="text" value="omersaklikaya" disabled
+                            class="w-full cursor-not-allowed rounded-md border border-neutral-200 bg-neutral-50 px-3 py-2 text-sm text-neutral-400 dark:border-neutral-800 dark:bg-neutral-800/50 dark:text-neutral-500" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── MODAL ── -->
+        <section id="modal" aria-labelledby="modal-heading">
+            <h2 id="modal-heading" class="mb-6 text-xl font-semibold">Modal</h2>
+            <div class="rounded-xl border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-neutral-900">
+                <button onclick="openModal('demo-modal')"
+                    class="inline-flex items-center justify-center rounded-md bg-black px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200">
+                    Modal Aç
+                </button>
+            </div>
+        </section>
+
+        <div id="demo-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"
+            class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+            <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" aria-hidden="true"
+                onclick="closeModal('demo-modal')"></div>
+            <div
+                class="relative w-full max-w-md rounded-xl border border-neutral-200 bg-white shadow-xl dark:border-neutral-800 dark:bg-neutral-900">
+                <div
+                    class="flex items-center justify-between border-b border-neutral-200 px-6 py-4 dark:border-neutral-800">
+                    <h2 id="modal-title" class="text-base font-semibold">Modal Başlığı</h2>
+                    <button onclick="closeModal('demo-modal')" aria-label="Kapat"
+                        class="rounded-md p-1 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-700 dark:hover:bg-neutral-800"><svg
+                            xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M18 6 6 18M6 6l12 12" />
+                        </svg></button>
+                </div>
+                <div class="px-6 py-4">
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400">Bu bir modal örneğidir. ESC tuşu veya
+                        backdrop'a tıklayarak kapatabilirsiniz.</p>
+                </div>
+                <div class="flex justify-end gap-2 border-t border-neutral-200 px-6 py-4 dark:border-neutral-800">
+                    <button onclick="closeModal('demo-modal')"
+                        class="rounded-md border border-neutral-300 px-4 py-2 text-sm font-medium hover:bg-neutral-100 dark:border-neutral-700 dark:hover:bg-neutral-800">İptal</button>
+                    <button
+                        class="rounded-md bg-black px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800 dark:bg-white dark:text-black">Onayla</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── DROPDOWN ── -->
+        <section id="dropdown" aria-labelledby="dd-heading">
+            <h2 id="dd-heading" class="mb-6 text-xl font-semibold">Dropdown</h2>
+            <div class="rounded-xl border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-neutral-900">
+                <div class="relative inline-block" id="dd-wrap">
+                    <button type="button" id="dd-trigger" aria-haspopup="menu" aria-expanded="false"
+                        onclick="toggleDD()"
+                        class="inline-flex items-center gap-2 rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-700 shadow-sm hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 dark:hover:bg-neutral-800">
+                        Seçenekler
+                        <svg id="dd-chevron" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <ul id="dd-menu" role="menu"
+                        class="absolute left-0 z-50 mt-1 hidden min-w-[10rem] rounded-lg border border-neutral-200 bg-white py-1 shadow-lg dark:border-neutral-800 dark:bg-neutral-900">
+                        <li role="none"><button role="menuitem" tabindex="-1"
+                                class="flex w-full items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-100 focus:bg-neutral-100 focus:outline-none dark:text-neutral-200 dark:hover:bg-neutral-800">Düzenle</button>
+                        </li>
+                        <li role="none"><button role="menuitem" tabindex="-1"
+                                class="flex w-full items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-100 focus:bg-neutral-100 focus:outline-none dark:text-neutral-200 dark:hover:bg-neutral-800">Kopyala</button>
+                        </li>
+                        <li role="separator" class="my-1 border-t border-neutral-200 dark:border-neutral-800"></li>
+                        <li role="none"><button role="menuitem" tabindex="-1"
+                                class="flex w-full items-center gap-2 px-3 py-2 text-sm text-red-600 hover:bg-red-50 focus:bg-red-50 focus:outline-none dark:text-red-400 dark:hover:bg-red-900/20">Sil</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── TOAST ── -->
+        <section id="toast" aria-labelledby="toast-heading">
+            <h2 id="toast-heading" class="mb-6 text-xl font-semibold">Toast</h2>
+            <div class="rounded-xl border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-neutral-900">
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="showToast('success','İşlem başarılı!','Değişiklikler kaydedildi.')"
+                        class="rounded-md bg-emerald-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-700">Başarı</button>
+                    <button onclick="showToast('error','Hata oluştu!','Lütfen tekrar deneyin.')"
+                        class="rounded-md bg-red-600    px-3 py-1.5 text-sm font-medium text-white hover:bg-red-700">Hata</button>
+                    <button onclick="showToast('warning','Dikkat!','Bu işlem geri alınamaz.')"
+                        class="rounded-md bg-amber-500  px-3 py-1.5 text-sm font-medium text-white hover:bg-amber-600">Uyarı</button>
+                    <button onclick="showToast('info','Bilgi','Yeni bir güncelleme var.')"
+                        class="rounded-md bg-blue-600   px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-700">Bilgi</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── ROADMAP ── -->
+        <section id="roadmap" aria-labelledby="roadmap-heading">
+            <h2 id="roadmap-heading" class="mb-6 text-xl font-semibold">v2 Roadmap</h2>
+            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                <div
+                    class="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
+                    <span class="text-xs font-medium text-blue-600 dark:text-blue-400">Bileşenler</span>
+                    <ul class="mt-2 space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+                        <li>· Badge / Chip</li>
+                        <li>· Tabs</li>
+                        <li>· Accordion</li>
+                        <li>· Pagination</li>
+                        <li>· Table</li>
+                    </ul>
+                </div>
+                <div
+                    class="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
+                    <span class="text-xs font-medium text-purple-600 dark:text-purple-400">Altyapı</span>
+                    <ul class="mt-2 space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+                        <li>· CLI aracı (npx startup-ui add)</li>
+                        <li>· Figma kit</li>
+                        <li>· VSCode snippet</li>
+                        <li>· npm paketi</li>
+                    </ul>
+                </div>
+                <div
+                    class="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
+                    <span class="text-xs font-medium text-emerald-600 dark:text-emerald-400">Döküman</span>
+                    <ul class="mt-2 space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+                        <li>· Canlı döküman sitesi</li>
+                        <li>· Playground</li>
+                        <li>· Örnek şablonlar</li>
+                        <li>· Vue versiyonu</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Toast Container -->
+    <div id="toast-container" aria-live="polite" aria-atomic="false"
+        class="fixed bottom-4 right-4 z-50 flex flex-col gap-2"></div>
+
+    <!-- FOOTER -->
+    <footer class="mt-20 border-t border-neutral-200 py-8 text-center text-sm text-neutral-400 dark:border-neutral-800">
+        <p>startup-ui — MIT Lisansı · <a href="https://github.com/omersaklikaya/startup-ui"
+                class="hover:text-neutral-900 dark:hover:text-neutral-100">GitHub</a></p>
+        <p class="mt-1">İstanbul'dan 🖤 ile yapıldı</p>
+    </footer>
+
+    <script>
+        // ── Dark Mode ──
+        function toggleDark() {
+            document.documentElement.classList.toggle('dark');
+        }
+
+        // ── Modal ──
+        function openModal(id) {
+            const m = document.getElementById(id);
+            m.classList.remove('hidden'); m.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            m.querySelector('button')?.focus();
+        }
+        function closeModal(id) {
+            const m = document.getElementById(id);
+            m.classList.add('hidden'); m.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') document.querySelectorAll('[role="dialog"]:not(.hidden)').forEach(m => closeModal(m.id));
+        });
+
+        // ── Dropdown ──
+        let ddOpen = false;
+        function toggleDD() {
+            ddOpen ? closeDd() : openDd();
+        }
+        function openDd() {
+            ddOpen = true;
+            document.getElementById('dd-menu').classList.remove('hidden');
+            document.getElementById('dd-trigger').setAttribute('aria-expanded', 'true');
+            document.getElementById('dd-chevron').style.transform = 'rotate(180deg)';
+            document.getElementById('dd-menu').querySelector('[role="menuitem"]')?.focus();
+        }
+        function closeDd() {
+            ddOpen = false;
+            document.getElementById('dd-menu').classList.add('hidden');
+            document.getElementById('dd-trigger').setAttribute('aria-expanded', 'false');
+            document.getElementById('dd-chevron').style.transform = 'rotate(0deg)';
+        }
+        document.getElementById('dd-menu').addEventListener('keydown', e => {
+            const items = [...document.querySelectorAll('#dd-menu [role="menuitem"]')];
+            const idx = items.indexOf(document.activeElement);
+            if (e.key === 'ArrowDown') { e.preventDefault(); items[(idx + 1) % items.length]?.focus(); }
+            if (e.key === 'ArrowUp') { e.preventDefault(); items[(idx - 1 + items.length) % items.length]?.focus(); }
+            if (e.key === 'Escape') { closeDd(); }
+        });
+        document.addEventListener('click', e => { if (!document.getElementById('dd-wrap').contains(e.target)) closeDd(); });
+
+        // ── Toast ──
+        const TOAST_VARIANTS = {
+            success: { classes: 'border-emerald-200 bg-emerald-50 text-emerald-900 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-100', icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600 dark:text-emerald-400 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>' },
+            error: { classes: 'border-red-200 bg-red-50 text-red-900 dark:border-red-800 dark:bg-red-950 dark:text-red-100', icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>' },
+            warning: { classes: 'border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-100', icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-600 dark:text-amber-400 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>' },
+            info: { classes: 'border-blue-200 bg-blue-50 text-blue-900 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-100', icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>' },
+        };
+        function showToast(variant, title, desc, duration = 3000) {
+            const container = document.getElementById('toast-container');
+            const v = TOAST_VARIANTS[variant];
+            const id = 'toast-' + Date.now();
+            const el = document.createElement('div');
+            el.id = id;
+            el.setAttribute('role', 'alert');
+            el.className = 'flex w-80 items-start gap-3 rounded-lg border p-4 shadow-lg opacity-0 translate-y-2 transition-all duration-300 ' + v.classes;
+            el.innerHTML = `${v.icon}<div class="flex-1 min-w-0"><p class="text-sm font-semibold">${title}</p>${desc ? `<p class="mt-0.5 text-xs opacity-80">${desc}</p>` : ''}</div><button onclick="removeToast('${id}')" aria-label="Kapat" class="shrink-0 rounded p-0.5 opacity-60 hover:opacity-100"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>`;
+            container.appendChild(el);
+            requestAnimationFrame(() => requestAnimationFrame(() => { el.classList.remove('opacity-0', 'translate-y-2'); }));
+            if (duration > 0) setTimeout(() => removeToast(id), duration);
+        }
+        function removeToast(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.classList.add('opacity-0', 'translate-y-2');
+            setTimeout(() => el.remove(), 300);
+        }
+    </script>
+</body>
+
+</html>

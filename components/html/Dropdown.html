@@ -1,0 +1,105 @@
+<!-- ================================================
+  startup-ui — Dropdown Component (HTML + Vanilla JS)
+  Features: keyboard navigation (arrow keys, enter, esc)
+  Accessibility: role=menu, aria-expanded, aria-haspopup
+================================================ -->
+
+<div class="relative inline-block" id="dropdown-wrapper">
+
+    <!-- Trigger -->
+    <button type="button" id="dropdown-trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="dropdown-menu"
+        onclick="toggleDropdown()"
+        class="inline-flex items-center gap-2 rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-700 shadow-sm transition-colors hover:bg-neutral-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 dark:hover:bg-neutral-800">
+        Seçenekler
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform" id="dropdown-chevron"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9" />
+        </svg>
+    </button>
+
+    <!-- Menu -->
+    <ul id="dropdown-menu" role="menu" aria-labelledby="dropdown-trigger"
+        class="absolute left-0 z-50 mt-1 hidden min-w-[10rem] rounded-lg border border-neutral-200 bg-white py-1 shadow-lg dark:border-neutral-800 dark:bg-neutral-900">
+        <li role="none">
+            <button role="menuitem" tabindex="-1"
+                class="flex w-full items-center gap-2 px-3 py-2 text-sm text-neutral-700 transition-colors hover:bg-neutral-100 focus:bg-neutral-100 focus:outline-none dark:text-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-neutral-400" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+                    <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                </svg>
+                Düzenle
+            </button>
+        </li>
+        <li role="none">
+            <button role="menuitem" tabindex="-1"
+                class="flex w-full items-center gap-2 px-3 py-2 text-sm text-neutral-700 transition-colors hover:bg-neutral-100 focus:bg-neutral-100 focus:outline-none dark:text-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-neutral-400" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <rect x="9" y="9" width="13" height="13" rx="2" />
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                </svg>
+                Kopyala
+            </button>
+        </li>
+        <!-- Ayırıcı -->
+        <li role="separator" class="my-1 border-t border-neutral-200 dark:border-neutral-800"></li>
+        <li role="none">
+            <button role="menuitem" tabindex="-1"
+                class="flex w-full items-center gap-2 px-3 py-2 text-sm text-red-600 transition-colors hover:bg-red-50 focus:bg-red-50 focus:outline-none dark:text-red-400 dark:hover:bg-red-900/20 dark:focus:bg-red-900/20">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <polyline points="3 6 5 6 21 6" />
+                    <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
+                    <path d="M10 11v6M14 11v6" />
+                    <path d="M9 6V4h6v2" />
+                </svg>
+                Sil
+            </button>
+        </li>
+    </ul>
+</div>
+
+<script>
+    const trigger = document.getElementById('dropdown-trigger');
+    const menu = document.getElementById('dropdown-menu');
+    const chevron = document.getElementById('dropdown-chevron');
+    let isOpen = false;
+
+    function toggleDropdown() {
+        isOpen ? closeDropdown() : openDropdown();
+    }
+
+    function openDropdown() {
+        isOpen = true;
+        menu.classList.remove('hidden');
+        trigger.setAttribute('aria-expanded', 'true');
+        chevron.style.transform = 'rotate(180deg)';
+        // İlk item'a focus
+        const first = menu.querySelector('[role="menuitem"]');
+        if (first) first.focus();
+    }
+
+    function closeDropdown() {
+        isOpen = false;
+        menu.classList.add('hidden');
+        trigger.setAttribute('aria-expanded', 'false');
+        chevron.style.transform = 'rotate(0deg)';
+        trigger.focus();
+    }
+
+    // Keyboard navigation
+    menu.addEventListener('keydown', (e) => {
+        const items = [...menu.querySelectorAll('[role="menuitem"]')];
+        const idx = items.indexOf(document.activeElement);
+        if (e.key === 'ArrowDown') { e.preventDefault(); items[(idx + 1) % items.length].focus(); }
+        if (e.key === 'ArrowUp') { e.preventDefault(); items[(idx - 1 + items.length) % items.length].focus(); }
+        if (e.key === 'Escape') { closeDropdown(); }
+        if (e.key === 'Tab') { closeDropdown(); }
+    });
+
+    // Dışarı tıklanınca kapat
+    document.addEventListener('click', (e) => {
+        if (!document.getElementById('dropdown-wrapper').contains(e.target)) closeDropdown();
+    });
+</script>
