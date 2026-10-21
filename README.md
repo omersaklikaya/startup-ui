@@ -9,7 +9,7 @@
 
 ---
 
-## 🧩 What is this?
+##  What is this?
 
 **startup-ui** lets you use production-ready UI components without any library dependencies.
 
@@ -17,19 +17,19 @@ No installation. No imports. Just copy, paste, and customize.
 
 ---
 
-## ✨ Features
+##  Features
 
-- 📋 **Copy-paste philosophy** — grab a component, drop it in your project, done
-- 🚫 **Zero dependencies** — Tailwind CSS only
-- 🌙 **Dark mode** — full class-based support (`dark:`)
-- ♿ **Accessible** — ARIA attributes, keyboard navigation throughout
-- 📱 **Responsive** — mobile-first design
-- ⚛️ **HTML + React** — every component ships in both flavors
-- 🎨 **Minimal & modern** — no bloat, no opinions
+-  **Copy-paste philosophy** — grab a component, drop it in your project, done
+-  **Zero dependencies** — Tailwind CSS only
+-  **Dark mode** — full class-based support (`dark:`)
+-  **Accessible** — ARIA attributes, keyboard navigation throughout
+-  **Responsive** — mobile-first design
+-  **HTML + React** — every component ships in both flavors
+-  **Minimal & modern** — no bloat, no opinions
 
 ---
 
-## 🤔 Why this project?
+##  Why this project?
 
 |                    | startup-ui | shadcn/ui | Headless UI | Bootstrap |
 | ------------------ | ---------- | --------- | ----------- | --------- |
@@ -43,7 +43,7 @@ No installation. No imports. Just copy, paste, and customize.
 
 ---
 
-## 📦 Installation
+##  Installation
 
 No installation needed. The only requirement is Tailwind CSS.
 
@@ -71,7 +71,7 @@ module.exports = {
 
 ---
 
-## 🚀 Usage
+##  Usage
 
 1. Find the component you need under `components/html/` or `components/react/`
 2. Copy the code
@@ -82,7 +82,7 @@ No imports, no setup, no config required.
 
 ---
 
-## 🗂️ Components
+##  Components
 
 | Component | HTML | React | Dark Mode | Accessible |
 | --------- | ---- | ----- | --------- | ---------- |
@@ -96,7 +96,7 @@ No imports, no setup, no config required.
 
 ---
 
-## 🖥️ Demo
+##  Demo
 
 > Live demo coming soon → [startup-ui.vercel.app](#)
 
@@ -112,19 +112,19 @@ open index.html
 
 ---
 
-## 📸 Screenshots
+##  Screenshots
 
 > Coming soon.
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Want to contribute? Check out [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 
-## 📄 License
+##  License
 
 [MIT](./LICENSE) — use it, modify it, ship it.
 
